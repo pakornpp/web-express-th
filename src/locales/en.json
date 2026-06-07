@@ -87,6 +87,10 @@
   "contact.form.success": "Thanks! We'll be in touch within one business day.",
   "nav.home": "Home",
   "nav.pricing": "Pricing",
+  "nav.blog": "Blog",
   "nav.contact": "Contact",
-  "nav.about": "About"
+  "nav.about": "About",
+  "blog.page.title": "Blog — WebExpressTH",
+  "blog.hero.title": "Blogs",
+  "blog.hero.subtitle": "Web design, digital marketing, and business growth for Thai businesses."
 }

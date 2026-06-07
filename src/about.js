@@ -7,8 +7,8 @@ import { initCtaBanner } from "./cta-banner.js";
 // Expose setLanguage globally for lang-switcher button onclick handlers
 window.setLanguage = setLanguage;
 
-initNav("index.html");
-initFooter("index.html");
+initNav();
+initFooter();
 initCtaBanner();
 initLanguage().then(() => {
   const loader = document.getElementById("page-loader");

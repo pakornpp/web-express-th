@@ -1,21 +1,26 @@
 /**
  * Shared navigation module.
- * @param {string} base - Path prefix for nav hrefs ("" for root, "index.html" for sub-pages).
+ * @param {string} prefix - Path prefix to root dir ("" for root pages, "../" for one level deep).
  */
-export function initNav(base = "") {
+export function initNav(prefix = "") {
   const nav = document.querySelector("nav");
   if (!nav) return;
 
+  const homeHref = `${prefix}index.html`;
+  const onHome = /\/(index\.html)?$/.test(window.location.pathname);
+  const pricingHref = onHome && !prefix ? "#pricing" : `${prefix}index.html#pricing`;
+
   nav.innerHTML = `
     <div class="nav-inner">
-      <a href="${base || "index.html"}" class="logo-container">
+      <a href="${homeHref}" class="logo-container">
         <span class="logo-name">Web<span class="gradient-text">Express</span><sup>TH</sup></span>
       </a>
       <div class="nav-menu" id="nav-menu">
-        <a href="${base || "index.html"}" data-i18n="nav.home">Home</a>
-        <a href="${base ? base + "#pricing" : "#pricing"}" data-i18n="nav.pricing">Pricing</a>
-        <a href="contact.html" data-i18n="nav.contact">Contact</a>
-        <a href="about.html" data-i18n="nav.about">About</a>
+        <a href="${homeHref}" data-i18n="nav.home">Home</a>
+        <a href="${pricingHref}" data-i18n="nav.pricing">Pricing</a>
+        <a href="${prefix}blog.html" data-i18n="nav.blog">Blog</a>
+        <a href="${prefix}contact.html" data-i18n="nav.contact">Contact</a>
+        <a href="${prefix}about.html" data-i18n="nav.about">About</a>
       </div>
       <div class="lang-switcher">
         <button data-lang-btn="en" onclick="window.setLanguage('en')">EN</button>
