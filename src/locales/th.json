@@ -87,6 +87,10 @@
   "contact.form.success": "ขอบคุณ! เราจะติดต่อกลับภายในหนึ่งวันทำการ",
   "nav.home": "หน้าหลัก",
   "nav.pricing": "แพ็กเกจ",
+  "nav.blog": "บทความ",
   "nav.contact": "ติดต่อ",
-  "nav.about": "เกี่ยวกับเรา"
+  "nav.about": "เกี่ยวกับเรา",
+  "blog.page.title": "บทความ — WebExpressTH",
+  "blog.hero.title": "บทความ",
+  "blog.hero.subtitle": "บทความเกี่ยวกับเว็บดีไซน์ และการตลาดด้านดิจิทัล สำหรับธุรกิจไทย"
 }

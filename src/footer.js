@@ -1,17 +1,19 @@
 /**
  * Shared footer module.
- * @param {string} base - Path to root index ("" for root, "index.html" for sub-pages).
+ * @param {string} base   - Path to index.html from current page.
+ * @param {string} prefix - Path prefix to root dir ("" for root pages, "../" for one level deep).
  */
-export function initFooter(base = "") {
+export function initFooter(base = "", prefix = "") {
   const footer = document.querySelector("footer");
   if (!footer) return;
 
   const year = new Date().getFullYear();
+  const homeHref = `${prefix}${base || "index.html"}`;
 
   footer.innerHTML = `
     <div class="footer-inner">
       <div class="footer-brand">
-        <a href="${base || "index.html"}" class="footer-logo-link">
+        <a href="${homeHref}" class="footer-logo-link">
           <span class="logo-name">Web<span class="gradient-text">Express</span><sup>TH</sup></span>
         </a>
         <p class="footer-tagline" data-i18n="footer.tagline">ยกระดับธุรกิจของคุณบน โลกออนไลน์</p>

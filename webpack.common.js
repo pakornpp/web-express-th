@@ -1,9 +1,37 @@
 import path from "node:path";
+import fs from "node:fs";
 import { fileURLToPath } from "node:url";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import CopyWebpackPlugin from "copy-webpack-plugin";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+// ── Auto-discover blog posts ──────────────────────────────────────────────────
+// Any .js file dropped into src/blog_posts/ automatically becomes a webpack
+// entry, and its matching .html file gets an HtmlWebpackPlugin instance.
+// No changes needed here when adding new posts.
+const blogPostDir = "./src/blog_posts";
+const blogPostFiles = fs.existsSync(blogPostDir) ? fs.readdirSync(blogPostDir) : [];
+
+const blogPostEntries = Object.fromEntries(
+  blogPostFiles
+    .filter((f) => f.endsWith(".js"))
+    .map((f) => [`blog_posts/${f.replace(/\.js$/, "")}`, `${blogPostDir}/${f}`])
+);
+
+const blogPostHtmlPlugins = blogPostFiles
+  .filter((f) => f.endsWith(".html"))
+  .map((f) => {
+    const name = f.replace(/\.html$/, "");
+    return new HtmlWebpackPlugin({
+      template: `${blogPostDir}/${f}`,
+      filename: `blog_posts/${f}`,
+      chunks: [`blog_posts/${name}`],
+      scriptLoading: "defer",
+    });
+  });
+
+// ─────────────────────────────────────────────────────────────────────────────
 
 class GtagPlugin {
   constructor(id) {
@@ -47,6 +75,8 @@ export default {
     main: "./src/index.js",
     about: "./src/about.js",
     contact: "./src/contact.js",
+    blog: "./src/blog.js",
+    ...blogPostEntries,
     "portfolio-luxe-watch": "./src/portfolio-luxe-watch.js",
     "portfolio-cafe":      "./src/portfolio-cafe.js",
     "portfolio-puphub":    "./src/portfolio-puphub.js",
@@ -97,6 +127,13 @@ export default {
       chunks: ["contact"],
       scriptLoading: "defer",
     }),
+    new HtmlWebpackPlugin({
+      template: "./src/blog.html",
+      filename: "blog.html",
+      chunks: ["blog"],
+      scriptLoading: "defer",
+    }),
+    ...blogPostHtmlPlugins,
     new HtmlWebpackPlugin({
       template: "./src/portfolio-luxe-watch.html",
       filename: "portfolio-luxe-watch.html",
