@@ -6,7 +6,7 @@ import { initCtaBanner } from "./cta-banner.js";
 
 window.setLanguage = setLanguage;
 
-initNav("");
+initNav("index.html");
 initFooter("");
 initCtaBanner();
 initLanguage().then(() => {
