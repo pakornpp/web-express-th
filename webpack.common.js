@@ -5,6 +5,43 @@ import CopyWebpackPlugin from "copy-webpack-plugin";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
+class GtagPlugin {
+  constructor(id) {
+    this.id = id;
+  }
+  apply(compiler) {
+    compiler.hooks.compilation.tap("GtagPlugin", (compilation) => {
+      HtmlWebpackPlugin.getCompilationHooks(compilation).alterAssetTagGroups.tap(
+        "GtagPlugin",
+        (data) => {
+          if (data.plugin.options.filename.startsWith("portfolio-")) return data;
+          data.headTags.unshift(
+            {
+              tagName: "script",
+              voidTag: false,
+              meta: {},
+              attributes: {
+                async: true,
+                src: `https://www.googletagmanager.com/gtag/js?id=${this.id}`,
+              },
+            },
+            {
+              tagName: "script",
+              voidTag: false,
+              meta: {},
+              attributes: {},
+              innerHTML: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','${this.id}')`,
+            }
+          );
+          return data;
+        }
+      );
+    });
+  }
+}
+
+export { GtagPlugin };
+
 export default {
   entry: {
     main: "./src/index.js",
