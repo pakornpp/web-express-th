@@ -1,5 +1,5 @@
 import { merge } from "webpack-merge";
-import common from "./webpack.common.js";
+import common, { GtagPlugin } from "./webpack.common.js";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 
 export default merge(common, {
@@ -14,6 +14,7 @@ export default merge(common, {
   },
   plugins: [
     new MiniCssExtractPlugin({ filename: "[name].css" }),
+    new GtagPlugin("G-C7X5DP4MJC"),
   ],
   output: {
     // "auto" generates relative URLs so assets resolve correctly regardless

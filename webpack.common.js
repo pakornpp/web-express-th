@@ -11,9 +11,10 @@ class GtagPlugin {
   }
   apply(compiler) {
     compiler.hooks.compilation.tap("GtagPlugin", (compilation) => {
-      HtmlWebpackPlugin.getCompilationHooks(compilation).alterAssetTagGroups.tapAsync(
+      HtmlWebpackPlugin.getCompilationHooks(compilation).alterAssetTagGroups.tap(
         "GtagPlugin",
-        (data, cb) => {
+        (data) => {
+          if (data.plugin.options.filename.startsWith("portfolio-")) return data;
           data.headTags.unshift(
             {
               tagName: "script",
@@ -32,12 +33,14 @@ class GtagPlugin {
               innerHTML: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','${this.id}')`,
             }
           );
-          cb(null, data);
+          return data;
         }
       );
     });
   }
 }
+
+export { GtagPlugin };
 
 export default {
   entry: {
@@ -124,7 +127,6 @@ export default {
       chunks: ["portfolio-photographer"],
       scriptLoading: "defer",
     }),
-    new GtagPlugin("G-C7X5DP4MJC"),
     new CopyWebpackPlugin({
       patterns: [
         { from: "src/assets", to: "assets" },
