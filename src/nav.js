@@ -1,14 +1,14 @@
 /**
  * Shared navigation module.
- * @param {string} base   - Path to index.html from current page ("" same-page anchor, "index.html" for root pages).
  * @param {string} prefix - Path prefix to root dir ("" for root pages, "../" for one level deep).
  */
-export function initNav(base = "", prefix = "") {
+export function initNav(prefix = "") {
   const nav = document.querySelector("nav");
   if (!nav) return;
 
-  const homeHref = `${prefix}${base || "index.html"}`;
-  const pricingHref = base ? `${prefix}${base}#pricing` : "#pricing";
+  const homeHref = `${prefix}index.html`;
+  const onHome = /\/(index\.html)?$/.test(window.location.pathname);
+  const pricingHref = onHome && !prefix ? "#pricing" : `${prefix}index.html#pricing`;
 
   nav.innerHTML = `
     <div class="nav-inner">

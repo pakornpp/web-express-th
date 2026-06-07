@@ -6,8 +6,8 @@ import { initFooter } from "./footer.js";
 // Expose setLanguage globally for lang-switcher button onclick handlers
 window.setLanguage = setLanguage;
 
-initNav("index.html");
-initFooter("index.html");
+initNav();
+initFooter();
 initLanguage().then(() => {
   const loader = document.getElementById("page-loader");
   loader.classList.add("is-hidden");

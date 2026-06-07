@@ -1,14 +1,13 @@
 /**
  * Shared footer module.
- * @param {string} base   - Path to index.html from current page.
  * @param {string} prefix - Path prefix to root dir ("" for root pages, "../" for one level deep).
  */
-export function initFooter(base = "", prefix = "") {
+export function initFooter(prefix = "") {
   const footer = document.querySelector("footer");
   if (!footer) return;
 
   const year = new Date().getFullYear();
-  const homeHref = `${prefix}${base || "index.html"}`;
+  const homeHref = `${prefix}index.html`;
 
   footer.innerHTML = `
     <div class="footer-inner">
