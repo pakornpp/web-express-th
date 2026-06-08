@@ -1710,6 +1710,56 @@ nav {
   margin-bottom: 1.5rem;
 }
 
+.cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+.cta-btn-icon {
+  width: 1.1em;
+  height: 1.1em;
+  flex-shrink: 0;
+}
+
+.btn-line {
+  background: #06C755;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.btn-line:hover { background: #05b34c; }
+
+.btn-facebook {
+  background: #1877F2;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.btn-facebook:hover { background: #0f65d4; }
+
+.btn-accent {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.cta-contact-link {
+  display: inline-flex;
+  color: #fff;
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+}
+
+.cta-contact-link:hover {
+  background: var(--color-primary-dark);  
+}
+
 /* =========================================================
    Footer
    ========================================================= */
