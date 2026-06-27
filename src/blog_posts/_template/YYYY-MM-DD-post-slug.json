@@ -1,0 +1,7 @@
+{
+  "title": "[Post title — matches <h1> and og:title]",
+  "date": "YYYY-MM-DD",
+  "dateDisplay": "D Month YYYY",
+  "category": "GUIDE",
+  "excerpt": "[2–3 sentence teaser shown on the blog listing page — 120–160 chars recommended]"
+}

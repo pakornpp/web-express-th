@@ -7,29 +7,35 @@ import CopyWebpackPlugin from "copy-webpack-plugin";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // ── Auto-discover blog posts ──────────────────────────────────────────────────
-// Any .js file dropped into src/blog_posts/ automatically becomes a webpack
-// entry, and its matching .html file gets an HtmlWebpackPlugin instance.
+// Each post lives in its own subdirectory: src/blog_posts/<slug>/<slug>.{html,js,json}
+// Directories prefixed with "_" (e.g. _template) are ignored.
 // No changes needed here when adding new posts.
 const blogPostDir = "./src/blog_posts";
-const blogPostFiles = fs.existsSync(blogPostDir) ? fs.readdirSync(blogPostDir) : [];
+const blogPostDirs = fs.existsSync(blogPostDir)
+  ? fs.readdirSync(blogPostDir, { withFileTypes: true }).filter(
+      (d) => d.isDirectory() && !d.name.startsWith("_")
+    )
+  : [];
 
 const blogPostEntries = Object.fromEntries(
-  blogPostFiles
-    .filter((f) => f.endsWith(".js"))
-    .map((f) => [`blog_posts/${f.replace(/\.js$/, "")}`, `${blogPostDir}/${f}`])
+  blogPostDirs.flatMap((d) => {
+    const jsPath = `${blogPostDir}/${d.name}/${d.name}.js`;
+    return fs.existsSync(jsPath) ? [[`blog_posts/${d.name}`, jsPath]] : [];
+  })
 );
 
-const blogPostHtmlPlugins = blogPostFiles
-  .filter((f) => f.endsWith(".html"))
-  .map((f) => {
-    const name = f.replace(/\.html$/, "");
-    return new HtmlWebpackPlugin({
-      template: `${blogPostDir}/${f}`,
-      filename: `blog_posts/${f}`,
-      chunks: [`blog_posts/${name}`],
+const blogPostHtmlPlugins = blogPostDirs.flatMap((d) => {
+  const htmlPath = `${blogPostDir}/${d.name}/${d.name}.html`;
+  if (!fs.existsSync(htmlPath)) return [];
+  return [
+    new HtmlWebpackPlugin({
+      template: htmlPath,
+      filename: `blog_posts/${d.name}.html`,
+      chunks: [`blog_posts/${d.name}`],
       scriptLoading: "defer",
-    });
-  });
+    }),
+  ];
+});
 
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -168,6 +174,12 @@ export default {
       patterns: [
         { from: "src/assets", to: "assets" },
         { from: "src/CNAME", to: "CNAME", toType: "file" },
+        {
+          from: "src/blog_posts",
+          to: "blog_posts",
+          globOptions: { ignore: ["**/*.html", "**/*.js", "**/*.json"] },
+          noErrorOnMissing: true,
+        },
       ],
     }),
   ],
