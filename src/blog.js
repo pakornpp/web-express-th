@@ -37,7 +37,7 @@ if (grid) {
       (post) => `
     <article class="blog-card">
       <a class="blog-card-cover-link" href="blog_posts/${post.slug}.html" tabindex="-1" aria-hidden="true">
-        <img class="blog-card-cover" src="blog_posts/${post.slug}/cover_photo.png" alt="" loading="lazy" onerror="this.closest('.blog-card-cover-link').style.display='none'">
+        <img class="blog-card-cover" src="blog_posts/${post.slug}/cover_photo.webp" alt="" loading="lazy" onerror="this.closest('.blog-card-cover-link').style.display='none'">
       </a>
       <div class="blog-card-body">
         <div class="blog-card-meta">
