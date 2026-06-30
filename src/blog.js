@@ -36,8 +36,8 @@ if (grid) {
     .map(
       (post) => `
     <article class="blog-card">
-      <a class="blog-card-cover-link" href="blog_posts/${post.slug}.html" tabindex="-1" aria-hidden="true">
-        <img class="blog-card-cover" src="blog_posts/${post.slug}/cover_photo.webp" alt="" loading="lazy" onerror="this.closest('.blog-card-cover-link').style.display='none'">
+      <a class="blog-card-cover-link" href="/blog_posts/${post.slug}" tabindex="-1" aria-hidden="true">
+        <img class="blog-card-cover" src="/blog_posts/${post.slug}/cover_photo.webp" alt="" loading="lazy" onerror="this.closest('.blog-card-cover-link').style.display='none'">
       </a>
       <div class="blog-card-body">
         <div class="blog-card-meta">
@@ -45,10 +45,10 @@ if (grid) {
           <time class="blog-card-date" datetime="${post.date}">${post.dateDisplay}</time>
         </div>
         <h2 class="blog-card-title">
-          <a href="blog_posts/${post.slug}.html">${post.title}</a>
+          <a href="/blog_posts/${post.slug}">${post.title}</a>
         </h2>
         <p class="blog-card-excerpt">${post.excerpt}</p>
-        <a class="blog-card-link" href="blog_posts/${post.slug}.html">Read more →</a>
+        <a class="blog-card-link" href="/blog_posts/${post.slug}">Read more →</a>
       </div>
     </article>`
     )

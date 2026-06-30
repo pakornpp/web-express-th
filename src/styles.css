@@ -2681,10 +2681,11 @@ textarea.form-control {
 
 /* Tables */
 .blog-post-body table {
-  width: 100%;
+  width: fit-content;
+  max-width: 100%;
   border-collapse: collapse;
   font-size: 0.9rem;
-  margin: 1.25rem 0;
+  margin: 1.25rem auto;
   overflow-x: auto;
   display: block;
 }

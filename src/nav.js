@@ -1,14 +1,14 @@
 /**
  * Shared navigation module.
- * @param {string} prefix - Path prefix to root dir ("" for root pages, "../" for one level deep).
+ * Links are root-absolute, so the same markup works from any page depth.
  */
-export function initNav(prefix = "") {
+export function initNav() {
   const nav = document.querySelector("nav");
   if (!nav) return;
 
-  const homeHref = `${prefix}index.html`;
-  const onHome = /\/(index\.html)?$/.test(window.location.pathname);
-  const pricingHref = onHome && !prefix ? "#pricing" : `${prefix}index.html#pricing`;
+  const homeHref = "/";
+  const onHome = /^\/(index\.html)?$/.test(window.location.pathname);
+  const pricingHref = onHome ? "#pricing" : "/#pricing";
 
   nav.innerHTML = `
     <div class="nav-inner">
@@ -18,9 +18,9 @@ export function initNav(prefix = "") {
       <div class="nav-menu" id="nav-menu">
         <a href="${homeHref}" data-i18n="nav.home">Home</a>
         <a href="${pricingHref}" data-i18n="nav.pricing">Pricing</a>
-        <a href="${prefix}blog.html" data-i18n="nav.blog">Blog</a>
-        <a href="${prefix}contact.html" data-i18n="nav.contact">Contact</a>
-        <a href="${prefix}about.html" data-i18n="nav.about">About</a>
+        <a href="/blog" data-i18n="nav.blog">Blog</a>
+        <a href="/contact" data-i18n="nav.contact">Contact</a>
+        <a href="/about" data-i18n="nav.about">About</a>
       </div>
       <div class="lang-switcher">
         <button data-lang-btn="en" onclick="window.setLanguage('en')">EN</button>
