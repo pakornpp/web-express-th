@@ -9,7 +9,7 @@ export function initPortfolioRibbon(el) {
   if (!el) return;
   el.innerHTML =
     "<span>Portfolio showcase by</span>" +
-    '<a href="index.html" class="portfolio-ribbon__link">WebExpressTH</a>' +
+    '<a href="/" class="portfolio-ribbon__link">WebExpressTH</a>' +
     '<span class="portfolio-ribbon__sep">\u00b7</span>' +
-    '<a href="index.html#contact" class="portfolio-ribbon__cta">Build yours \u2192</a>';
+    '<a href="/#contact" class="portfolio-ribbon__cta">Build yours \u2192</a>';
 }

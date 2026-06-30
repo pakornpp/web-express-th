@@ -6,9 +6,9 @@ import { initCtaBanner } from "../../cta-banner.js";
 
 window.setLanguage = setLanguage;
 
-initNav("../../");
-initCtaBanner("../../");
-initFooter("../../");
+initNav();
+initCtaBanner();
+initFooter();
 initLanguage().then(() => {
   const loader = document.getElementById("page-loader");
   loader.classList.add("is-hidden");
